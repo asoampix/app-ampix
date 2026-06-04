@@ -1,0 +1,12 @@
+# Android Gradle build files
+/android/.gradle/
+/android/local.properties
+/android/app/build/
+/android/build/
+/android/app/src/main/res/values/local.xml
+
+# System files
+.DS_Store
+Thumbs.db
+*.apk
+*.log

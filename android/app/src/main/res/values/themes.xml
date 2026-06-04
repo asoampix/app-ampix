@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.microsoft.com/tools">
+    <!-- Tema de la aplicación heredando de NoActionBar -->
+    <style name="Theme.Ampix" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Colores del tema principal -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        
+        <!-- Personalizar barra de estado en Android moderno -->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+</resources>

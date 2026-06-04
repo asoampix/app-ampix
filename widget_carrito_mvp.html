@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ampix Circular Marketplace</title>
+  <!-- Google Fonts: Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #2e7d32;
+      --primary-hover: #1b5e20;
+      --bg-dark: #121212;
+      --card-bg: rgba(30, 30, 30, 0.65);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f5f5f5;
+      --text-muted: #aaaaaa;
+      --accent-color: #81c784;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: transparent;
+      color: var(--text-main);
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    /* Contenedor Principal */
+    .market-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .market-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 15px;
+    }
+
+    .market-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .cart-trigger {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: var(--text-main);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .cart-trigger:hover {
+      background: rgba(46, 125, 50, 0.15);
+      border-color: var(--primary-color);
+    }
+
+    .cart-badge {
+      background: var(--primary-color);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    /* Grid de Productos */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(46, 125, 50, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-image-placeholder {
+      height: 180px;
+      background: linear-gradient(135deg, #1b5e20, #2e7d32);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 40px;
+    }
+
+    .product-info {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .product-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .product-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+
+    .add-to-cart-btn {
+      background: var(--primary-color);
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+
+    .add-to-cart-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Modal / Cajón del Carrito */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 380px;
+      height: 100vh;
+      background: #181818;
+      box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+      border-left: 1px solid var(--border-color);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cart-drawer.open {
+      right: 0;
+    }
+
+    .cart-drawer-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-drawer-header h3 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .close-cart-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .cart-items-list {
+      padding: 20px;
+      overflow-y: auto;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.03);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .cart-item-details {
+      flex-grow: 1;
+      padding-right: 15px;
+    }
+
+    .cart-item-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-price {
+      font-size: 13px;
+      color: var(--accent-color);
+    }
+
+    .cart-item-qty {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .remove-item-btn {
+      background: transparent;
+      border: none;
+      color: #ef9a9a;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .cart-drawer-footer {
+      padding: 20px;
+      border-top: 1px solid var(--border-color);
+      background: #141414;
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .checkout-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Modal de Checkout */
+    .checkout-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1001;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .checkout-modal {
+      background: #1e1e1e;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      max-width: 500px;
+      width: 100%;
+      padding: 35px;
+      position: relative;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .checkout-modal h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--accent-color);
+    }
+
+    .checkout-modal p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .payment-option {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .payment-option-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .payment-option-details {
+      font-family: monospace;
+      font-size: 13px;
+      color: #a5d6a7;
+    }
+
+    .close-modal-btn {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .close-modal-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="market-wrapper">
+    <div class="market-header">
+      <h2>Catálogo de Aportaciones Circulares</h2>
+      <button class="cart-trigger" id="cartTrigger">
+        🛒 Carrito <span class="cart-badge" id="cartCount">0</span>
+      </button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+      <!-- Producto 1 -->
+      <div class="product-card" data-id="1" data-name="Membresía Simpatizante Ampix" data-price="10">
+        <div class="product-image-placeholder">🎫</div>
+        <div class="product-info">
+          <h3 class="product-title">Socio Simpatizante</h3>
+          <p class="product-desc">Suscripción de apoyo mensual para sostener las actividades del aula dual y los servidores del proyecto.</p>
+          <div class="product-footer">
+            <span class="product-price">10,00 €</span>
+            <button class="add-to-cart-btn">Añadir al Carrito</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="product-card" data-id="2" data-name="Pack Merchandising Oficial" data-price="25">
+        <div class="product-image-placeholder">👕</div>
+        <div class="product-info">
+          <h3 class="product-title">Pack Impulsor Ampix</h3>
+          <p class="product-desc">Consigue la camiseta oficial y la acreditación física de la asociación. Envíos gratis en España.</p>
+          <div class="product-footer">
+            <span class="product-price">25,00 €</span>
+            <button class="add-to-cart-btn">Añadir al Carrito</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="product-card" data-id="3" data-name="Beca de Formación para Creador" data-price="50">
+        <div class="product-image-placeholder">🎓</div>
+        <div class="product-info">
+          <h3 class="product-title">Apoyo Taller Dual</h3>
+          <p class="product-desc">Financia los materiales y licencias para que un artista local sin recursos curse un taller formativo completo.</p>
+          <div class="product-footer">
+            <span class="product-price">50,00 €</span>
+            <button class="add-to-cart-btn">Añadir al Carrito</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer del Carrito -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3>Tu Aportación</h3>
+      <button class="close-cart-btn" id="closeCart">×</button>
+    </div>
+    <div class="cart-items-list" id="cartItemsList">
+      <!-- Se llena dinámicamente -->
+      <div style="text-align: center; color: var(--text-muted); margin-top: 50px;">El carrito está vacío</div>
+    </div>
+    <div class="cart-drawer-footer">
+      <div class="cart-total-row">
+        <span>Total:</span>
+        <span id="cartTotal">0,00 €</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn" disabled>Proceder al Aporte</button>
+    </div>
+  </div>
+
+  <!-- Modal de Checkout -->
+  <div class="checkout-modal-overlay" id="checkoutModalOverlay">
+    <div class="checkout-modal">
+      <h3>Instrucciones de Aportación</h3>
+      <p>Para formalizar tu micro-donación circular en esta fase de prueba del proyecto, utiliza uno de los siguientes métodos oficiales indicando como concepto tu nombre y apellidos:</p>
+      
+      <div class="payment-option">
+        <div class="payment-option-title">📲 Bizum Oficial Ampix</div>
+        <div class="payment-option-details">Teléfono: +34 654 321 098</div>
+      </div>
+
+      <div class="payment-option">
+        <div class="payment-option-title">🏦 Transferencia Bancaria</div>
+        <div class="payment-option-details">IBAN: ES21 0049 1500 23 1234567890</div>
+        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Banco Santander - Titular: Asociación Cultural Ampix</div>
+      </div>
+
+      <p style="font-size: 12px; color: var(--text-muted);">Una vez verificado el aporte por el equipo administrativo, actualizaremos tu XP de mecenazgo y te enviaremos el recibo oficial de donación deducible.</p>
+
+      <button class="close-modal-btn" id="closeModal">Entendido, cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartTrigger = document.getElementById('cartTrigger');
+    const closeCart = document.getElementById('closeCart');
+    const productGrid = document.getElementById('productGrid');
+    const cartItemsList = document.getElementById('cartItemsList');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartCount = document.getElementById('cartCount');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    const checkoutModalOverlay = document.getElementById('checkoutModalOverlay');
+    const closeModal = document.getElementById('closeModal');
+
+    // Control del cajón del carrito
+    cartTrigger.addEventListener('click', () => cartDrawer.classList.add('open'));
+    closeCart.addEventListener('click', () => cartDrawer.classList.remove('open'));
+
+    // Escuchar adición al carrito
+    productGrid.addEventListener('click', (e) => {
+      if(e.target.classList.contains('add-to-cart-btn')) {
+        const card = e.target.closest('.product-card');
+        const id = card.dataset.id;
+        const name = card.dataset.name;
+        const price = parseFloat(card.dataset.price);
+
+        addToCart(id, name, price);
+      }
+    });
+
+    function addToCart(id, name, price) {
+      const existingItem = cart.find(item => item.id === id);
+      if(existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cart.push({ id, name, price, qty: 1 });
+      }
+      updateCartUI();
+      // Auto-abrir carrito para dar feedback
+      cartDrawer.classList.add('open');
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      // Contador badge
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      cartCount.innerText = totalItems;
+
+      // Habilitar/deshabilitar botón de checkout
+      checkoutBtn.disabled = cart.length === 0;
+
+      // Limpiar lista
+      cartItemsList.innerHTML = '';
+
+      if(cart.length === 0) {
+        cartItemsList.innerHTML = '<div style="text-align: center; color: var(--text-muted); margin-top: 50px;">El carrito está vacío</div>';
+        cartTotal.innerText = '0,00 €';
+        return;
+      }
+
+      let total = 0;
+      cart.forEach(item => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = `
+          <div class="cart-item-details">
+            <div class="cart-item-title">${item.name}</div>
+            <div class="cart-item-price">${item.price.toFixed(2)} € <span class="cart-item-qty">x${item.qty}</span></div>
+          </div>
+          <button class="remove-item-btn" onclick="removeFromCart('${item.id}')">Eliminar</button>
+        `;
+        cartItemsList.appendChild(itemEl);
+      });
+
+      cartTotal.innerText = total.toFixed(2) + ' €';
+    }
+
+    // Checkout
+    checkoutBtn.addEventListener('click', () => {
+      cartDrawer.classList.remove('open');
+      checkoutModalOverlay.style.display = 'flex';
+    });
+
+    closeModal.addEventListener('click', () => {
+      checkoutModalOverlay.style.display = 'none';
+      // Vaciar carrito
+      cart = [];
+      updateCartUI();
+    });
+  </script>
+
+</body>
+</html>

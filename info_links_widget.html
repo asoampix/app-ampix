@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enlaces de Venta y Ubicación - Poupee Crochet</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --primary: #D97D64;       /* Terracota suave */
+      --primary-hover: #C56A52;
+      --secondary: #81B29A;     /* Verde salvia */
+      --secondary-light: #F0F6F3;
+      --bg-cream: #FDFBF7;
+      --card-bg: #FFFFFF;
+      --text-dark: #2B2D42;
+      --text-light: #6C757D;
+      --shadow-sm: 0 4px 12px rgba(217, 125, 100, 0.06);
+      --shadow-md: 0 8px 24px rgba(217, 125, 100, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-main: 'Outfit', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      padding: 20px;
+    }
+
+    .info-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* Estilo de Tarjeta */
+    .info-card {
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      border: 1px solid #F3EDE4;
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .info-card.accent-green::before {
+      background-color: var(--secondary);
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-top {
+      margin-bottom: 25px;
+    }
+
+    .icon-wrapper {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background-color: #FFF3F0;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .accent-green .icon-wrapper {
+      background-color: var(--secondary-light);
+      color: var(--secondary);
+    }
+
+    .info-card:hover .icon-wrapper {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    .highlight-list {
+      margin-top: 15px;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .highlight-list li {
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-dark);
+    }
+
+    .highlight-list li i {
+      color: var(--secondary);
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Botones de acción */
+    .card-action-btn {
+      width: 100%;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+
+    .card-action-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .accent-green .card-action-btn {
+      background-color: var(--secondary);
+    }
+
+    .accent-green .card-action-btn:hover {
+      background-color: #709F87;
+    }
+
+    .btn-wallapop {
+      background-color: #00B2B2; /* Color corporativo Wallapop */
+    }
+    
+    .btn-wallapop:hover {
+      background-color: #009999;
+    }
+
+    /* Estilo de mapa integrado o indicador */
+    .address-box {
+      background-color: #FDFBF7;
+      border: 1px dashed #EFEAE2;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 15px;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .address-box i {
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="info-container">
+
+    <!-- Tarjeta 1: Clases de Crochet -->
+    <div class="info-card">
+      <div class="card-top">
+        <div class="icon-wrapper">
+          <i data-lucide="graduation-cap" style="width: 26px; height: 26px;"></i>
+        </div>
+        <h3 class="card-title">Clases de Crochet</h3>
+        <p class="card-text">
+          Aprende con Maria Fernanda las mejores técnicas de ganchillo y crea tus propios amigurumis. Clases personalizadas tanto presenciales como virtuales.
+        </p>
+        <ul class="highlight-list">
+          <li><i data-lucide="check"></i> <b>Clases Virtuales:</b> Mediante Google Meet.</li>
+          <li><i data-lucide="check"></i> <b>Clases Presenciales:</b> En Colmenar Viejo.</li>
+          <li><i data-lucide="check"></i> <b>Niveles:</b> Desde principiantes hasta avanzados.</li>
+          <li><i data-lucide="check"></i> <b>Flexibilidad:</b> Elige tu propio horario.</li>
+        </ul>
+      </div>
+      <a href="https://wa.me/34645474609?text=Hola%20Maria%20Fernanda,%20quiero%20informaci%C3%B3n%20sobre%20tus%20clases%20de%20crochet." target="_blank" class="card-action-btn">
+        <i data-lucide="calendar"></i> Reservar / Pedir Info
+      </a>
+    </div>
+
+    <!-- Tarjeta 2: Enlace Wallapop (Crochet de Colección) -->
+    <div class="info-card accent-green">
+      <div class="card-top">
+        <div class="icon-wrapper">
+          <i data-lucide="store" style="width: 26px; height: 26px;"></i>
+        </div>
+        <h3 class="card-title">Comprar por Wallapop</h3>
+        <p class="card-text">
+          ¿Prefieres comprar con la seguridad y envíos de Wallapop? Puedes ver nuestras valoraciones de 5 estrellas y comprar nuestras creaciones directamente en la plataforma.
+        </p>
+        <ul class="highlight-list">
+          <li><i data-lucide="star"></i> <b>Envíos Seguros:</b> A toda España.</li>
+          <li><i data-lucide="star"></i> <b>Pagos Protegidos:</b> Mediante Wallapop Envíos.</li>
+          <li><i data-lucide="star"></i> <b>Catálogo Directo:</b> Capibaras y más peluches listos.</li>
+        </ul>
+      </div>
+      <a href="https://es.wallapop.com/item/capibara-amigurumi-tejido-a-mano-1251452156" target="_blank" class="card-action-btn btn-wallapop">
+        <i data-lucide="external-link"></i> Ver Perfil en Wallapop
+      </a>
+    </div>
+
+    <!-- Tarjeta 3: Ubicación y Recogida Local -->
+    <div class="info-card">
+      <div class="card-top">
+        <div class="icon-wrapper">
+          <i data-lucide="map-pin" style="width: 26px; height: 26px;"></i>
+        </div>
+        <h3 class="card-title">Punto de Recogida</h3>
+        <p class="card-text">
+          Si vives en Madrid, puedes ahorrarte los gastos de envío recogiendo tus amigurumis en nuestro taller. Pagas cómodamente al retirar.
+        </p>
+        
+        <div class="address-box">
+          <i data-lucide="navigation"></i>
+          <div>
+            <strong>Dirección:</strong><br>
+            Travesía de los Tintes 14, 28770<br>
+            Colmenar Viejo, Madrid, España
+          </div>
+        </div>
+
+        <ul class="highlight-list" style="margin-top: 15px;">
+          <li><i data-lucide="credit-card"></i> <b>Pago Aceptado:</b> Bizum o Efectivo.</li>
+          <li><i data-lucide="clock"></i> <b>Horarios:</b> A convenir con cita previa.</li>
+        </ul>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Travesia+de+los+Tintes+14+Colmenar+Viejo+Madrid+28770" target="_blank" class="card-action-btn">
+        <i data-lucide="map"></i> Cómo llegar en Google Maps
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    // Inicializar iconos de Lucide
+    lucide.createIcons();
+  </script>
+</body>
+</html>

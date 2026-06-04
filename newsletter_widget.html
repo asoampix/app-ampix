@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suscríbete al Boletín - Poupee Crochet</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --primary: #D97D64;       /* Terracota */
+      --primary-hover: #C56A52;
+      --secondary: #81B29A;     /* Verde salvia */
+      --bg-cream: #FDFBF7;
+      --card-bg: #FFFFFF;
+      --text-dark: #2B2D42;
+      --text-light: #6C757D;
+      --shadow-sm: 0 4px 12px rgba(217, 125, 100, 0.06);
+      --shadow-md: 0 12px 30px rgba(217, 125, 100, 0.12);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-main: 'Outfit', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Tarjeta Newsletter */
+    .newsletter-card {
+      background-color: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid #F3EDE4;
+      padding: 40px 30px;
+      box-shadow: var(--shadow-md);
+      max-width: 550px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Adornos de fondo simulando hilos */
+    .newsletter-card::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px dashed rgba(217, 125, 100, 0.15);
+      pointer-events: none;
+    }
+
+    .newsletter-card::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 2px dashed rgba(129, 178, 154, 0.2);
+      pointer-events: none;
+    }
+
+    .icon-box {
+      width: 70px;
+      height: 70px;
+      background-color: #FFF3F0;
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 4px 10px rgba(217, 125, 100, 0.1);
+    }
+
+    .icon-box i {
+      width: 32px;
+      height: 32px;
+    }
+
+    h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    p.subtitle {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin-bottom: 30px;
+      padding: 0 10px;
+    }
+
+    /* Formulario */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .input-group {
+      position: relative;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      border: 2px solid #EFEAE2;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      background-color: #FCFAF7;
+      color: var(--text-dark);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .input-group input:focus {
+      border-color: var(--primary);
+      background-color: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(217, 125, 100, 0.15);
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 16px;
+      bottom: 15px;
+      color: var(--text-light);
+      width: 18px;
+      height: 18px;
+      transition: var(--transition);
+    }
+
+    .input-group input:focus + i {
+      color: var(--primary);
+    }
+
+    .btn-submit {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition);
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(217, 125, 100, 0.25);
+    }
+
+    /* Estado de Carga (Spinner) */
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Estado Exitoso */
+    .success-state {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-state h4 {
+      font-size: 1.4rem;
+      color: var(--secondary);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .success-state p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* Aviso de Modo Demo Local */
+    .demo-banner {
+      background-color: #FEF3C7;
+      border: 1px solid #F59E0B;
+      color: #92400E;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      margin-bottom: 20px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .demo-banner i {
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="newsletter-card">
+    
+    <!-- Banner de Advertencia Demo (solo visible localmente si no hay URL configurada) -->
+    <div class="demo-banner" id="demoBanner">
+      <i data-lucide="alert-triangle" style="width:16px;height:16px;"></i>
+      <span><b>Modo Demo:</b> Configura tu URL de Google Apps Script en el código HTML para guardar los datos reales en tu Excel.</span>
+    </div>
+
+    <!-- Contenido Inicial del Formulario -->
+    <div id="formContent">
+      <div class="icon-box">
+        <i data-lucide="mail-open"></i>
+      </div>
+      
+      <h3>Boletín de Suscriptores</h3>
+      <p class="subtitle">Recibe en tu correo patrones gratis, novedades de amigurumis y descuentos exclusivos para los cursos de María Fernanda.</p>
+      
+      <form id="subscribeForm" onsubmit="handleSubscribe(event)">
+        <!-- Entrada Nombre -->
+        <div class="input-group">
+          <label for="userName">Tu Nombre</label>
+          <input type="text" id="userName" placeholder="Ej. Ana García" required>
+          <i data-lucide="user"></i>
+        </div>
+
+        <!-- Entrada Email -->
+        <div class="input-group">
+          <label for="userEmail">Tu Correo Electrónico</label>
+          <input type="email" id="userEmail" placeholder="Ej. ana@gmail.com" required>
+          <i data-lucide="mail"></i>
+        </div>
+
+        <!-- Botón de Suscribirme -->
+        <button type="submit" class="btn-submit" id="btnSubmit">
+          <span id="btnText">¡Quiero Suscribirme!</span>
+          <div class="spinner" id="btnSpinner"></div>
+        </button>
+      </form>
+    </div>
+
+    <!-- Contenido de Éxito -->
+    <div class="success-state" id="successContent">
+      <div class="icon-box" style="background-color: #EAF4F0; color: var(--secondary);">
+        <i data-lucide="check-circle-2"></i>
+      </div>
+      <h4>¡Suscripción Completada!</h4>
+      <p>Gracias por unirte a Poupee Crochet. <br>A partir de ahora estarás al tanto de todas nuestras novedades, talleres y patrones gratis en tu correo electrónico.</p>
+    </div>
+
+  </div>
+
+  <script>
+    // URL DE LA APLICACIÓN WEB DE GOOGLE APPS SCRIPT
+    // Reemplaza esta constante con la URL que te da Google Apps Script al implementarlo
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZYoCCU-lrodJPN9eq46TJYkHKEk-JyocQ8PfRnjyL-oxAUzqGBFJXgv7CMyhBH1ehRA/exec";
+
+    // Inicializar iconos
+    lucide.createIcons();
+
+    // Comprobamos si la URL sigue de prueba para mostrar el banner explicativo
+    document.addEventListener("DOMContentLoaded", () => {
+      if (SCRIPT_URL === "URL_DE_TU_APPS_SCRIPT") {
+        document.getElementById("demoBanner").style.display = "flex";
+      }
+    });
+
+    // Envío del Formulario
+    function handleSubscribe(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById("userName").value;
+      const email = document.getElementById("userEmail").value;
+      
+      const btnText = document.getElementById("btnText");
+      const btnSpinner = document.getElementById("btnSpinner");
+      const btnSubmit = document.getElementById("btnSubmit");
+
+      // Estado de carga
+      btnText.style.display = "none";
+      btnSpinner.style.display = "block";
+      btnSubmit.disabled = true;
+
+      // Si no hay URL configurada, simulamos la suscripción (modo demo local)
+      if (SCRIPT_URL === "URL_DE_TU_APPS_SCRIPT") {
+        setTimeout(() => {
+          showSuccess();
+          console.log(`Demo: Suscripción simulada con éxito para ${name} (${email})`);
+        }, 1200);
+        return;
+      }
+
+      // Solicitud real al script de Google
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name: name, email: email })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.result === "success") {
+          showSuccess();
+        } else {
+          alert("Hubo un problema al guardar tus datos: " + data.message);
+          resetButton();
+        }
+      })
+      .catch(error => {
+        console.error("Error al enviar:", error);
+        alert("Error de conexión. Asegúrate de haber autorizado la ejecución de Apps Script en Google.");
+        resetButton();
+      });
+    }
+
+    function showSuccess() {
+      document.getElementById("formContent").style.display = "none";
+      document.getElementById("successContent").style.display = "block";
+    }
+
+    function resetButton() {
+      const btnText = document.getElementById("btnText");
+      const btnSpinner = document.getElementById("btnSpinner");
+      const btnSubmit = document.getElementById("btnSubmit");
+      
+      btnText.style.display = "block";
+      btnSpinner.style.display = "none";
+      btnSubmit.disabled = false;
+    }
+  </script>
+</body>
+</html>
