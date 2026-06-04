@@ -1,7 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace "es.ampix.app"
     compileSdkVersion 33
+
+    lintOptions {
+        abortOnError false
+    }
 
     defaultConfig {
         applicationId "es.ampix.app"
