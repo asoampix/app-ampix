@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inversores y Mecenazgo - Ampix</title>
+  <title>Inversión de Impacto - Ampix</title>
   <!-- Google Fonts: Outfit -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   
@@ -12,10 +12,10 @@
       --primary-color: #2e7d32;
       --primary-hover: #1b5e20;
       --bg-dark: #121212;
-      --card-bg: rgba(25, 25, 25, 0.85);
-      --border-color: rgba(255, 255, 255, 0.08);
+      --card-bg: rgba(30, 30, 30, 0.75);
+      --border-color: rgba(255, 255, 255, 0.1);
       --text-main: #f5f5f5;
-      --text-muted: #999999;
+      --text-muted: #aaaaaa;
       --accent-color: #81c784;
     }
 
@@ -36,83 +36,61 @@
       padding: 20px;
     }
 
-    .corporate-container {
+    .form-container {
       background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 45px;
+      border-radius: 16px;
+      padding: 40px;
       width: 100%;
-      max-width: 600px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
+      max-width: 500px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .corporate-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    }
-
-    .corporate-container:hover {
-      box-shadow: 0 15px 50px rgba(46, 125, 50, 0.15);
+    .form-container:hover {
+      box-shadow: 0 12px 40px 0 rgba(46, 125, 50, 0.2);
       transform: translateY(-2px);
     }
 
     .form-header {
-      margin-bottom: 35px;
+      text-align: center;
+      margin-bottom: 30px;
     }
 
     .form-header h2 {
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 700;
       color: var(--text-main);
       letter-spacing: -0.5px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .form-header p {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .form-row {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 20px;
     }
 
     .input-group {
-      flex: 1;
       margin-bottom: 20px;
-    }
-
-    .form-row .input-group {
-      margin-bottom: 0;
+      position: relative;
     }
 
     .input-label {
       display: block;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 600;
       color: var(--accent-color);
       margin-bottom: 8px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     .input-field {
       width: 100%;
       padding: 14px 16px;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border-color);
       border-radius: 8px;
       color: var(--text-main);
@@ -124,8 +102,8 @@
     .input-field:focus {
       outline: none;
       border-color: var(--primary-color);
-      background: rgba(255, 255, 255, 0.06);
-      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.2);
     }
 
     select.input-field {
@@ -143,29 +121,15 @@
       color: #f5f5f5;
     }
 
-    textarea.input-field {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .checkbox-container {
+    .rgpd-group {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 10px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 16px;
+      align-items: flex-start;
+      margin-top: 25px;
+      margin-bottom: 25px;
     }
 
-    .checkbox-item {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .checkbox-input {
+    .rgpd-checkbox {
+      margin-top: 4px;
       margin-right: 12px;
       width: 18px;
       height: 18px;
@@ -173,9 +137,20 @@
       accent-color: var(--primary-color);
     }
 
-    .checkbox-label {
-      font-size: 14px;
-      color: var(--text-main);
+    .rgpd-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .rgpd-label a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .rgpd-label a:hover {
+      text-decoration: underline;
     }
 
     .submit-btn {
@@ -188,15 +163,14 @@
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 10px;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
     }
 
     .submit-btn:hover {
       background: var(--primary-hover);
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.3);
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
     }
 
     .submit-btn:active {
@@ -204,14 +178,15 @@
     }
 
     .submit-btn:disabled {
-      background: #333;
-      color: #666;
+      background: #444;
+      color: #777;
       cursor: not-allowed;
       box-shadow: none;
     }
 
+    /* Estados de respuesta */
     .status-msg {
-      margin-top: 25px;
+      margin-top: 20px;
       padding: 15px;
       border-radius: 8px;
       font-size: 14px;
@@ -252,13 +227,9 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 600px) {
-      .form-row {
-        flex-direction: column;
-        gap: 0;
-      }
-      .corporate-container {
-        padding: 30px 20px;
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 25px 20px;
       }
       .form-header h2 {
         font-size: 24px;
@@ -268,63 +239,58 @@
 </head>
 <body>
 
-  <div class="corporate-container">
+  <div class="form-container">
     <div class="form-header">
-      <h2>Inversión & Patrocinio</h2>
-      <p>Colabora en el desarrollo del Centro de Operaciones Tecnológicas (COT) y apoya la cultura digital abierta</p>
+      <h2>Colaboración Empresarial</h2>
+      <p>Inversión de impacto para el ecosistema Ampix</p>
     </div>
 
-    <form id="empresaForm">
-      <div class="form-row">
-        <div class="input-group">
-          <label class="input-label" for="razon_social">Razón Social</label>
-          <input class="input-field" type="text" id="razon_social" name="razon_social" placeholder="Empresa S.L. / Persona Física" required>
-        </div>
-        <div class="input-group">
-          <label class="input-label" for="sector">Sector de Actividad</label>
-          <select class="input-field" id="sector" name="sector" required>
-            <option value="" disabled selected>Selecciona sector</option>
-            <option value="Tecnología / Software">Tecnología / Software</option>
-            <option value="Cultura / Entretenimiento">Cultura / Entretenimiento</option>
-            <option value="Marketing / Publicidad">Marketing / Publicidad</option>
-            <option value="Servicios Profesionales">Servicios Profesionales</option>
-            <option value="Inversión / Banca">Inversión / Financiero</option>
-            <option value="Otro">Otro sector</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="input-group">
-          <label class="input-label" for="contacto">Persona de Contacto</label>
-          <input class="input-field" type="text" id="contacto" name="contacto" placeholder="Nombre completo" required>
-        </div>
-        <div class="input-group">
-          <label class="input-label" for="email">Email Corporativo</label>
-          <input class="input-field" type="email" id="email" name="email" placeholder="contacto@empresa.com" required>
-        </div>
+    <form id="inversorForm">
+      <div class="input-group">
+        <label class="input-label" for="razon_social">Razón Social / Entidad</label>
+        <input class="input-field" type="text" id="razon_social" name="razon_social" placeholder="Nombre oficial de la empresa" required>
       </div>
 
       <div class="input-group">
-        <label class="input-label">Modalidad de Interés</label>
-        <div class="checkbox-container">
-          <label class="checkbox-item">
-            <input class="checkbox-input" type="checkbox" name="modalidad" value="Convenio de Patrocinio de Servicios">
-            <span class="checkbox-label">Convenio de Patrocinio publicitario (Gasto de Publicidad)</span>
-          </label>
-          <label class="checkbox-item">
-            <input class="checkbox-input" type="checkbox" name="modalidad" value="Donación Directa Deducible">
-            <span class="checkbox-label">Donación directa deducible fiscalmente</span>
-          </label>
-          <label class="checkbox-item">
-            <input class="checkbox-input" type="checkbox" name="modalidad" value="Aportación de Recursos / Infraestructura">
-            <span class="checkbox-label">Aportación de equipamiento tecnológico (Hardware / Espacios)</span>
-          </label>
-          <label class="checkbox-item">
-            <input class="checkbox-input" type="checkbox" name="modalidad" value="Mentoría / Redes">
-            <span class="checkbox-label">Mentoría o apoyo técnico especializado</span>
-          </label>
-        </div>
+        <label class="input-label" for="contacto">Persona de Contacto y Cargo</label>
+        <input class="input-field" type="text" id="contacto" name="contacto" placeholder="Nombre completo y puesto" required>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" for="email">Correo Corporativo</label>
+        <input class="input-field" type="email" id="email" name="email" placeholder="contacto@empresa.com" required>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" for="sector">Sector de Actividad</label>
+        <select class="input-field" id="sector" name="sector" required>
+          <option value="" disabled selected>Selecciona un sector</option>
+          <option value="Tecnología / Software">Tecnología e Innovación</option>
+          <option value="Cultura / Entretenimiento">Cultura, Arte o Entretenimiento</option>
+          <option value="Educación">Educación y Formación</option>
+          <option value="Servicios Profesionales">Servicios Profesionales</option>
+          <option value="Inversión / Banca">Finanzas e Inversión</option>
+          <option value="Otro">Otro sector</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" for="modalidad">Modalidad de Interés</label>
+        <select class="input-field" id="modalidad" name="modalidad" required>
+          <option value="" disabled selected>¿Cómo te gustaría colaborar?</option>
+          <option value="Convenio de Patrocinio">Patrocinio Publicitario (Servicios/Web)</option>
+          <option value="Donación Directa Deducible">Donación Económica Deducible</option>
+          <option value="Aportación de Recursos">Aportación de Equipamiento/Software</option>
+          <option value="Mentoría / Redes">Mentoría o Red de Contactos</option>
+          <option value="Otra / A concretar">Otra opción a concretar</option>
+        </select>
+      </div>
+
+      <div class="rgpd-group">
+        <input class="rgpd-checkbox" type="checkbox" id="rgpd" name="rgpd" required>
+        <label class="rgpd-label" for="rgpd">
+          Acepto el tratamiento de mis datos de forma exclusiva para la gestión corporativa de la Asociación Ampix, de conformidad con el RGPD. <a href="https://www.ampix.es/privacidad" target="_blank">Leer política de privacidad</a>.
+        </label>
       </div>
 
       <button class="submit-btn" type="submit" id="submitBtn">Solicitar Información</button>
@@ -335,27 +301,18 @@
 
   <script>
     // IMPORTANTE: Reemplaza esta dirección con la URL de tu implementación de Google Apps Script (Terminada en /exec)
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwrycgp3h37GDCf4N177g52wmwsY1yWCwum0coCEqNMFu_0xJUR3nAa-zjh2Ww9EgilnA/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz3k4QK262yJubSfbc9jgGas6-9hbYigOheDKzcEcbp3U759-nco8P9vdxDiUlH-u_T/exec";
 
-    const form = document.getElementById('empresaForm');
+    const form = document.getElementById('inversorForm');
     const submitBtn = document.getElementById('submitBtn');
     const statusMessage = document.getElementById('statusMessage');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       
-      // Obtener modalidades de interés marcadas
-      const checkboxes = document.querySelectorAll('input[name="modalidad"]:checked');
-      const modalidades = [];
-      checkboxes.forEach((cb) => modalidades.push(cb.value));
-
-      if (modalidades.length === 0) {
-        showStatus("Por favor, selecciona al menos una modalidad de interés.", "error");
-        return;
-      }
-
+      // Mostrar estado de carga
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="loader"></span>Procesando solicitud...';
+      submitBtn.innerHTML = '<span class="loader"></span>Procesando...';
       statusMessage.style.display = 'none';
       statusMessage.className = 'status-msg';
 
@@ -365,11 +322,12 @@
         sector: document.getElementById('sector').value,
         contacto: document.getElementById('contacto').value.trim(),
         email: document.getElementById('email').value.trim(),
-        interes: modalidades.join(', ')
+        interes: document.getElementById('modalidad').value,
+        rgpd: document.getElementById('rgpd').checked
       };
 
       if(APPS_SCRIPT_URL === "URL_DE_TU_APPS_SCRIPT_AQUI") {
-        showStatus("Error técnico: Backend no configurado. Por favor contacta con gestión.", "error");
+        showStatus("Error técnico: Backend no configurado.", "error");
         return;
       }
 
@@ -382,12 +340,12 @@
         body: JSON.stringify(payload)
       })
       .then(() => {
-        showStatus("¡Solicitud recibida! Nuestro equipo administrativo se pondrá en contacto contigo a la brevedad.", "success");
+        showStatus("¡Solicitud recibida! Nuestro equipo administrativo se pondrá en contacto pronto.", "success");
         form.reset();
       })
       .catch(error => {
         console.error("Error al registrar:", error);
-        showStatus("Error al conectar con el servidor. Inténtalo de nuevo en unos minutos.", "error");
+        showStatus("Error al conectar con el servidor. Inténtalo de nuevo.", "error");
       });
     });
 
